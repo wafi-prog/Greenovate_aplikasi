@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart'; // Import flutter_svg
 import 'package:greenovate/card/article_card.dart';
 import 'package:greenovate/card/baca_card.dart';
 import 'package:greenovate/constans/color.dart';
@@ -39,18 +40,36 @@ class EducationPage extends StatelessWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-                    child: TextField(
-                      decoration: InputDecoration(
-                        hintText: 'Cari',
-                        prefixIcon: const Icon(Icons.search),
-                        filled: true,
-                        fillColor: Colors.white,
-                        contentPadding: const EdgeInsets.all(12),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: BorderSide.none,
+                    child: Stack(
+                      clipBehavior:
+                          Clip.none, // Allow the mascot to float above other elements
+                      children: [
+                        // TextField (Search Bar)
+                        TextField(
+                          decoration: InputDecoration(
+                            hintText: 'Cari',
+                            prefixIcon: const Icon(Icons.search),
+                            filled: true,
+                            fillColor: Colors.white,
+                            contentPadding: const EdgeInsets.all(12),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              borderSide: BorderSide.none,
+                            ),
+                          ),
                         ),
-                      ),
+                        // Mascot (kotset.svg) positioned in the top-right corner
+                        Positioned(
+                          top: -80,
+                          right: 0, // Menempatkan ikon di sebelah kanan
+                          child: SvgPicture.asset(
+                            'assets/svg/kotset.svg',
+                            width:
+                                120, // Mengubah ukuran lebar ikon menjadi lebih besar
+                            height: 95,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],
@@ -61,30 +80,13 @@ class EducationPage extends StatelessWidget {
 
         body: Column(
           children: [
-            SizedBox(
-              height: 0,
-              child: Stack(
-                children: [
-                  Positioned(
-                    top: 0,
-                    right: 16,
-                    child: Image.asset(
-                      'assets/images/mascot.png', // Ganti dengan ikon kamu
-                      height: 60,
-                    ),
-                  ),
-                ],
-              ),
-            ),
             const TabBar(
               labelColor: Colors.black,
               unselectedLabelColor: Colors.black45,
               labelStyle: TextStyle(fontWeight: FontWeight.bold),
               indicator: UnderlineTabIndicator(
                 borderSide: BorderSide(width: 2.0, color: Color(0xFFFF9B50)),
-                insets: EdgeInsets.symmetric(
-                  horizontal: 120.0,
-                ), // Semakin kecil angkanya, semakin lebar garisnya
+                insets: EdgeInsets.symmetric(horizontal: 120.0),
               ),
               tabs: [Tab(text: 'Artikel'), Tab(text: 'Idea craft')],
             ),
@@ -144,7 +146,7 @@ class EducationPage extends StatelessWidget {
                 ArticleCard(
                   image: 'assets/images/artikel/mengelolasampah.png',
                   title:
-                      'Dari Smpah Daur Ulang,Sukarelawan Membersihkan Sampah',
+                      'Dari Sampah Daur Ulang,Sukarelawan Membersihkan Sampah',
                 ),
               ],
             ),
@@ -160,7 +162,7 @@ class EducationPage extends StatelessWidget {
                 BacaCard(
                   image: 'assets/images/artikel/manfaat.png',
                   title: 'Mengurangi Volume Sampah di TPA',
-                  description: 'Smpah Yang Diolah Seringkali...',
+                  description: 'Sampah Yang Diolah Seringkali...',
                 ),
                 const SizedBox(width: 12),
                 BacaCard(
@@ -177,9 +179,8 @@ class EducationPage extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 30),
-
-           _sectionHeader(context, 'Rekomendasi'),
-            const SizedBox(height: 12),
+          _sectionHeader(context, 'Rekomendasi'),
+          const SizedBox(height: 12),
           _listArticle(
             'assets/images/artikel/eco.png',
             'Membuat Kompos Mudah',

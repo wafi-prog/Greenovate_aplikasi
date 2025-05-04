@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart'; // Import flutter_svg
 import 'package:greenovate/card/category_card.dart';
 import 'package:greenovate/card/market_card.dart';
 import 'package:greenovate/screens/home/marketplace/market_page.dart';
@@ -104,18 +105,34 @@ class _MarketplacePageState extends State<MarketplacePage> {
                       ],
                     ),
                     const SizedBox(height: 16),
-                    const TextField(
-                      decoration: InputDecoration(
-                        hintText: 'Cari produk ramah lingkungan',
-                        prefixIcon: Icon(Icons.search),
-                        filled: true,
-                        fillColor: Colors.white,
-                        contentPadding: EdgeInsets.symmetric(horizontal: 16),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(12)),
-                          borderSide: BorderSide.none,
+                    Stack(
+                      clipBehavior: Clip.none,  // Allow mascot to overlap
+                      children: [
+                        // TextField (Search Bar)
+                        const TextField(
+                          decoration: InputDecoration(
+                            hintText: 'Cari produk ramah lingkungan',
+                            prefixIcon: Icon(Icons.search),
+                            filled: true,
+                            fillColor: Colors.white,
+                            contentPadding: EdgeInsets.symmetric(horizontal: 16),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(12)),
+                              borderSide: BorderSide.none,
+                            ),
+                          ),
+                        ),
+                        // Mascot (kotset.svg) positioned in the top-right corner
+                        Positioned(
+                        top: -80,
+                        right: 0, // Menempatkan ikon di sebelah kanan
+                        child: SvgPicture.asset(
+                          'assets/svg/kotset.svg',
+                          width: 120,  // Mengubah ukuran lebar ikon menjadi lebih besar
+                          height: 95
                         ),
                       ),
+                      ],
                     ),
                   ],
                 ),

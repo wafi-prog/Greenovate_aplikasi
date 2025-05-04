@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';  // Import flutter_svg
 import 'package:greenovate/card/article_card.dart';
 import 'package:greenovate/card/product_card.dart';
 import 'package:greenovate/constans/color.dart';
@@ -96,8 +97,12 @@ class _HomePageState extends State<HomePage> {
                     ],
                   ),
                   const SizedBox(height: 16),
+
+                  // Memindahkan ikon mascot di atas tombol pencarian
                   Stack(
+                    clipBehavior: Clip.none, // Agar ikon tidak terpotong
                     children: [
+                      // Tombol pencarian
                       TextField(
                         decoration: InputDecoration(
                           hintText: 'Cari produk ramah lingkungan',
@@ -111,13 +116,14 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                       ),
+                      // Ikon mascot di sebelah kanan atas menggunakan SVG
                       Positioned(
-                        right: 10,
-                        top: 12,
-                        child: Image.asset(
-                          'assets/images/stack.png',
-                          width: 24,
-                          height: 24,
+                        top: -80,
+                        right: 0, // Menempatkan ikon di sebelah kanan
+                        child: SvgPicture.asset(
+                          'assets/svg/kotset.svg',
+                          width: 120,  // Mengubah ukuran lebar ikon menjadi lebih besar
+                          height: 95
                         ),
                       ),
                     ],
@@ -244,12 +250,14 @@ class _HomePageState extends State<HomePage> {
                       children: [
                         ArticleCard(
                           image: 'assets/images/artikel.png',
-                          title: '5 Bahan yang Sering Kamu Buang Padahal Bisa Didaur Ulann',
+                          title:
+                              '5 Bahan yang Sering Kamu Buang Padahal Bisa Didaur Ulang',
                         ),
                         const SizedBox(width: 12),
                         ArticleCard(
                           image: 'assets/images/artikel/mengelolasampah.png',
-                          title: 'Dari Smpah Daur Ulang,Sukarelawan Membersihkan Sampah',
+                          title:
+                              'Dari Sampah Daur Ulang, Sukarelawan Membersihkan Sampah',
                         ),
                       ],
                     ),
