@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:greenovate/auth/bloc/login/login_bloc.dart';
+import 'package:greenovate/datasource/auth_remote_datasource.dart';
 import 'package:greenovate/on_boarding/boarding1_page.dart';
 import 'package:greenovate/on_boarding/boarding2_page.dart';
 import 'package:greenovate/on_boarding/boarding3_page.dart';
@@ -18,7 +21,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MultiBlocProvider(
+      providers: [
+       BlocProvider(
+          create: (context) => LoginBloc(AuthRemoteDatasources()),
+        ),
+       
+      ],
+
+    child : MaterialApp(
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {
@@ -33,6 +44,7 @@ class MyApp extends StatelessWidget {
         '/marketplace': (context) => const MarketplacePage(),
         // Hapus rute '/productDetail' karena akan dinavigasi menggunakan MaterialPageRoute
       },
+    ),
     );
   }
 }
