@@ -34,7 +34,7 @@ class User {
     final dynamic twoFactorConfirmedAt;
     final dynamic createdAt;
     final dynamic updatedAt;
-    final dynamic phone;
+    final dynamic telpon;
     final String? role;
 
     User({
@@ -47,7 +47,7 @@ class User {
         this.twoFactorConfirmedAt,
         this.createdAt,
         this.updatedAt,
-        this.phone,
+        this.telpon,
         this.role,
     });
 
@@ -65,7 +65,7 @@ class User {
         twoFactorConfirmedAt: json["two_factor_confirmed_at"],
         createdAt: json["created_at"],
         updatedAt: json["updated_at"],
-        phone: json["phone"],
+        telpon: json["telpon"],
         role: json["role"],
     );
 
@@ -79,7 +79,7 @@ class User {
         "two_factor_confirmed_at": twoFactorConfirmedAt,
         "created_at": createdAt,
         "updated_at": updatedAt,
-        "phone": phone,
+        "telpon": telpon,
         "role": role,
     };
 }

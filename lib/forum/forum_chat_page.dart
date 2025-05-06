@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:greenovate/constans/color.dart';
 
 class ForumChatPage extends StatelessWidget {
   const ForumChatPage({super.key});
@@ -7,17 +8,35 @@ class ForumChatPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF4FDF6),
-      appBar: AppBar(
-        backgroundColor: const Color(0xFF3A6936),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () => Navigator.pop(context),
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(70),
+        child: ClipRRect(
+          borderRadius: const BorderRadius.vertical(
+            bottom: Radius.circular(10),
+          ),
+          child: AppBar(
+            backgroundColor: AppColors.primary,
+            leading: IconButton(
+              icon: const Icon(Icons.arrow_back, color: Color(0xFFF4FDF6)),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+            title: const Padding(
+              padding: EdgeInsets.symmetric(vertical: 29),
+              child: Text(
+                'Ngobrol Bareng Yuk !',
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+            centerTitle: true,
+            elevation: 0,
+          ),
         ),
-        title: const Text(
-          'Ngobrolin Bareng',
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-        ),
-        centerTitle: true,
       ),
       body: Column(
         children: [
@@ -82,14 +101,15 @@ class PostBubble extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(name,
-              style: const TextStyle(
-                  fontWeight: FontWeight.bold, color: Colors.white)),
-          const SizedBox(height: 4),
           Text(
-            content,
-            style: const TextStyle(color: Colors.white),
+            name,
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
           ),
+          const SizedBox(height: 4),
+          Text(content, style: const TextStyle(color: Colors.white)),
           const SizedBox(height: 8),
           Align(
             alignment: Alignment.bottomRight,
@@ -97,7 +117,7 @@ class PostBubble extends StatelessWidget {
               time,
               style: const TextStyle(color: Colors.white70, fontSize: 10),
             ),
-          )
+          ),
         ],
       ),
     );
@@ -127,14 +147,12 @@ class ChatBubble extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(name,
-              style:
-                  const TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
-          const SizedBox(height: 4),
           Text(
-            message,
-            style: const TextStyle(fontSize: 13),
+            name,
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
           ),
+          const SizedBox(height: 4),
+          Text(message, style: const TextStyle(fontSize: 13)),
           const SizedBox(height: 8),
           Align(
             alignment: Alignment.bottomRight,
@@ -142,7 +160,7 @@ class ChatBubble extends StatelessWidget {
               time,
               style: const TextStyle(color: Colors.grey, fontSize: 10),
             ),
-          )
+          ),
         ],
       ),
     );
@@ -156,8 +174,9 @@ class MessageInputBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Container(
-        padding:
-            const EdgeInsets.symmetric(horizontal: 16).copyWith(bottom: 12),
+        padding: const EdgeInsets.symmetric(
+          horizontal: 16,
+        ).copyWith(bottom: 12),
         child: Row(
           children: [
             Expanded(
