@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:greenovate/auth/bloc/login/login_bloc.dart';
 import 'package:greenovate/constans/color.dart';
 import 'package:greenovate/screens/signup_screen.dart';
 
@@ -18,12 +20,11 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      backgroundColor: const Color(0xFF2E7D32), // Hijau tua
+      backgroundColor: const Color(0xFF2E7D32),
       body: SingleChildScrollView(
         child: Column(
           children: [
             const SizedBox(height: 40),
-            // Top Row (back & logo)
             Row(
               children: [
                 
@@ -33,25 +34,23 @@ class _LoginPageState extends State<LoginPage> {
               ],
             ),
             const SizedBox(height: 20),
-            // Maskot
             Image.asset('assets/images/mascot.png', height: 100),
             const SizedBox(height: 10),
-            // Container Form
             Container(
               width: double.infinity,
               constraints: BoxConstraints(
-                minHeight: MediaQuery.of(context).size.height * 0.7, // Supaya bawah penuh
+                minHeight: MediaQuery.of(context).size.height * 0.7,
               ),
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
               decoration: const BoxDecoration(
-                color: Color(0xFFF3FFF6), // Hijau muda
+                color: Color(0xFFF3FFF6),
                 borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Center(
-                    child: const Text(
+                  const Center(
+                    child: Text(
                       'Selamat datang kembali!',
                       style: TextStyle(
                         fontSize: 20,
@@ -76,38 +75,66 @@ class _LoginPageState extends State<LoginPage> {
                       },
                     ),
                   ),
-                  const SizedBox(height: 40), // Dikasih jarak lebih bawah
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        if (emailController.text.isEmpty ||
-                            passwordController.text.isEmpty) {
-                          showDialog(
-                            context: context,
-                            builder: (_) => const AlertDialog(
-                              content: Text("Semua field wajib diisi!"),
+                  const SizedBox(height: 40),
+                  BlocListener<LoginBloc, LoginState>(
+                    listener: (context, state) {
+                      state.maybeWhen(
+                        success: (data) {
+                          Navigator.pushReplacementNamed(context, '/home');
+                        },
+                        eror: (message) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(message),
+                              backgroundColor: Colors.red,
                             ),
                           );
-                          return;
-                        }
-                        Navigator.pushReplacementNamed(context, '/home');
+                        },
+                        orElse: () {},
+                      );
+                    },
+                    child: BlocBuilder<LoginBloc, LoginState>(
+                      builder: (context, state) {
+                        return state.maybeWhen(
+                          loading: () => const Center(child: CircularProgressIndicator()),
+                          orElse: () => SizedBox(
+                            width: double.infinity,
+                            child: ElevatedButton(
+                              onPressed: () {
+                                if (emailController.text.isEmpty || passwordController.text.isEmpty) {
+                                  showDialog(
+                                    context: context,
+                                    builder: (_) => const AlertDialog(
+                                      content: Text("Semua field wajib diisi!"),
+                                    ),
+                                  );
+                                  return;
+                                }
+                                context.read<LoginBloc>().add(
+                                  LoginEvent.login(
+                                    email: emailController.text,
+                                    password: passwordController.text,
+                                  ),
+                                );
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: AppColors.button,
+                                padding: const EdgeInsets.symmetric(vertical: 16),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                              ),
+                              child: const Text(
+                                'Login',
+                                style: TextStyle(color: Colors.white, fontSize: 16),
+                              ),
+                            ),
+                          ),
+                        );
                       },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.button,
-                        padding: const EdgeInsets.symmetric(vertical: 16),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                      ),
-                      child: const Text(
-                        'Login',
-                        style: TextStyle(color: Colors.white, fontSize: 16),
-                      ),
                     ),
                   ),
                   const SizedBox(height: 20),
-                  // Divider
                   Row(
                     children: const [
                       Expanded(child: Divider(color: Colors.grey)),
@@ -119,7 +146,6 @@ class _LoginPageState extends State<LoginPage> {
                     ],
                   ),
                   const SizedBox(height: 10),
-                  // Signup
                   Center(
                     child: GestureDetector(
                       onTap: () {
@@ -139,7 +165,6 @@ class _LoginPageState extends State<LoginPage> {
                               style: TextStyle(
                                 color: Colors.blue,
                                 fontWeight: FontWeight.bold,
-                                
                               ),
                             ),
                           ],
