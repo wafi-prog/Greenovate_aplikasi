@@ -1,5 +1,5 @@
 
-import 'package:greenovate/models/request/response/auth_response_model.dart';
+import 'package:greenovate/models/response/auth_response_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 

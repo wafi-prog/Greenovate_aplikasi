@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:greenovate/auth/bloc/login/login_bloc.dart';
+import 'package:greenovate/auth/bloc/register/register_bloc.dart';
 import 'package:greenovate/datasource/auth_remote_datasource.dart';
 import 'package:greenovate/on_boarding/boarding1_page.dart';
 import 'package:greenovate/on_boarding/boarding2_page.dart';
@@ -26,7 +27,10 @@ class MyApp extends StatelessWidget {
        BlocProvider(
           create: (context) => LoginBloc(AuthRemoteDatasources()),
         ),
-       
+       BlocProvider(
+          create: (context) => RegisterBloc(),
+        ),
+      
       ],
 
     child : MaterialApp(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:greenovate/forum/forum_chat_page.dart';  // Import svg
+import 'package:greenovate/constans/color.dart';
+import 'package:greenovate/forum/forum_chat_page.dart';
 
 class ForumPage extends StatelessWidget {
   const ForumPage({super.key});
@@ -9,31 +10,35 @@ class ForumPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF4FDF6),
-      appBar: AppBar(
-        backgroundColor: const Color(0xFF3A6936),
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () => Navigator.pop(context),
-        ),
-        title: Row(
-          children: [
-            const Text(
-              'Forum',
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(70),
+        child: ClipRRect(
+          borderRadius: const BorderRadius.vertical(
+            bottom: Radius.circular(10),
+          ),
+          child: AppBar(
+            backgroundColor: AppColors.primary,
+            leading: IconButton(
+              icon: const Icon(Icons.arrow_back, color: Color(0xFFF4FDF6)),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+            title: const Padding(
+              padding: EdgeInsets.symmetric(vertical: 29),
+              child: Text(
+                'Forum Diskusi',
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
               ),
             ),
-            const SizedBox(width: 8),
-            SvgPicture.asset(
-              'assets/svg/kotset.svg',  // Path ke gambar Kotset
-              width: 40,  // Ukuran gambar Kotset yang lebih kecil
-              height: 40,
-            ),
-          ],
+            centerTitle: true,
+            elevation: 0,
+          ),
         ),
-        centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(18),
@@ -42,175 +47,130 @@ class ForumPage extends StatelessWidget {
           children: [
             Stack(
               children: [
-                // Kotak untuk pesan dengan batasan 3 baris
-                Container(
-                  padding: const EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.green.withOpacity(0.2),
-                        spreadRadius: 2,
-                        blurRadius: 5,
-                      ),
-                    ],
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Yuk, jelajahi forum seru ini!\nBanyak kategori menarik yang bisa kamu temukan dan ikuti.',
-                        style: const TextStyle(fontSize: 16),
-                        maxLines: 3,  // Membatasi teks agar menjadi 3 baris
-                        overflow: TextOverflow.ellipsis, // Jika teks lebih dari 3 baris, akan dipotong
-                      ),
-                    ],
-                  ),
-                ),
-                // Kotset gambar
-                Positioned(
-                  right: 0, // Menempatkan gambar di kanan
-                  top: 10,    // Menjaga gambar tetap sejajar di atas teks
-                  child: SvgPicture.asset(
-                    'assets/svg/kotset.svg',
-                    width: 40,  // Ukuran gambar Kotset yang lebih kecil
-                    height: 40,
+                SizedBox(
+                  width: 292,
+                  height: 90,
+                  child: Container(
+                    padding: const EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                      color: AppColors.background,
+                      borderRadius: BorderRadius.circular(12),
+                      boxShadow: [
+                        BoxShadow(
+                          color: AppColors.grey.withOpacity(0.1),
+                          spreadRadius: 2,
+                          blurRadius: 1,
+                        ),
+                      ],
+                    ),
+                    child: const Text(
+                      'Yuk, jelajahi forum seru ini!\nBanyak kategori menarik yang bisa kamu temukan dan ikuti.',
+                      style: TextStyle(fontSize: 16),
+                    ),
                   ),
                 ),
               ],
             ),
-            const SizedBox(height: 16),
-            // Kategori dengan gambar di sebelah kiri
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const ForumChatPage(),
-                  ),
-                );
-              },
-              child: Row(
-                children: [
-                  Image.asset(
-                    'assets/images/mascot.png',
-                    width: 40,
-                    height: 40,
-                  ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
-                        Text(
-                          'Ngobrolin Bareng Komunitas',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                          ),
-                        ),
-                        SizedBox(height: 4),
-                        Text(
-                          'Kadang pengen ngobrol santai aja. Yuk, curhatin proses kreatifmu, cerita lucu, atau sekadar kenalan!',
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: Colors.grey,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+            const SizedBox(height: 20),
+
+            // Kartu-kartu forum
+            _buildForumCard(
+              context,
+              image: 'assets/images/mascot.png',
+              title: 'Ngobrolin Bareng Komunitas',
+              description:
+                  'Kadang pengen ngobrol santai aja. Yuk, curhatin proses kreatifmu, cerita lucu, atau sekadar kenalan!',
             ),
             const SizedBox(height: 12),
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const ForumChatPage(),
-                  ),
-                );
-              },
-              child: Row(
-                children: [
-                  Image.asset(
-                    'assets/images/Image.png',
-                    width: 40,
-                    height: 40,
-                  ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
-                        Text(
-                          'Lapak Kreasi Kamu',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                          ),
-                        ),
-                        SizedBox(height: 4),
-                        Text(
-                          'Punya karya keren dan pengen jualan? Di sini tempatnya promosi, tukar tips/ulasan, dan saling dukung.',
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: Colors.grey,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+            _buildForumCard(
+              context,
+              image: 'assets/images/Image.png',
+              title: 'Lapak Kreasi Kamu',
+              description:
+                  'Punya karya keren dan pengen jualan? Di sini tempatnya promosi, tukar tips jualan, dan saling dukung.',
             ),
             const SizedBox(height: 12),
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const ForumChatPage(),
-                  ),
-                );
-              },
-              child: Row(
-                children: [
-                  Image.asset(
-                    'assets/images/laut.png',
-                    width: 40,
-                    height: 40,
-                  ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
-                        Text(
-                          'Belajar Bareng DIY',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                          ),
-                        ),
-                        SizedBox(height: 4),
-                        Text(
-                          'Baru mulai atau mau upgrade skill? Yuk, belajar bareng lewat tips, tanya jawab, dan panduan praktis.',
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: Colors.grey,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+            _buildForumCard(
+              context,
+              image: 'assets/images/laut.png',
+              title: 'Belajar Bareng DIY',
+              description:
+                  'Baru mulai atau mau upgrade skill? Yuk, belajar bareng lewat tips, tanya jawab, dan panduan praktis.',
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildForumCard(
+    BuildContext context, {
+    required String image,
+    required String title,
+    required String description,
+  }) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const ForumChatPage()),
+        );
+      },
+      child: Padding(
+       padding: const EdgeInsets.symmetric(horizontal: 15),
+        child: SizedBox(
+          width: 330,
+          height: 100,
+          child: Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(12),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.green.withOpacity(0.1),
+                  blurRadius: 5,
+                  offset: const Offset(0, 2),
+                ),
+              ],
+            ),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(
+                    50,
+                  ),
+                  child: Image.asset(
+                    image,
+                    width: 56,
+                    height: 56,
+                    fit: BoxFit.cover, 
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        title,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        description,
+                        style: const TextStyle(fontSize: 12, color: Colors.grey),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );
