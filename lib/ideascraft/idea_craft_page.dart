@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart'; // Import flutter_svg
 import 'package:greenovate/card/article_card.dart';
 import 'package:greenovate/card/baca_card.dart';
+import 'package:greenovate/card/idea_card.dart';
 import 'package:greenovate/constans/color.dart';
 import 'package:greenovate/education/education_list_page.dart';
-import 'package:greenovate/ideascraft/idea_craft_page.dart'; // Import IdeaCraftPage
+import 'package:greenovate/ideascraft/idea_craft_page.dart';
+import 'package:greenovate/ideascraft/ideacraft_list_page.dart'; // Import IdeaCraftPage
 
-class EducationPage extends StatelessWidget {
-  const EducationPage({super.key});
+class IdeaCraftPage extends StatelessWidget {
+  const IdeaCraftPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,86 +19,39 @@ class EducationPage extends StatelessWidget {
         backgroundColor: AppColors.background,
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(130),
-          child: Container(
-            decoration: const BoxDecoration(
-              color: AppColors.primary,
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(15),
-                bottomRight: Radius.circular(15),
-              ),
-            ),
-            child: SafeArea(
-              child: Column(
-                children: [
-                  const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 12),
-                    child: Text(
-                      'Education',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w700,
-                        fontSize: 24,
-                      ),
-                    ),
+          child: Padding(
+            padding: const EdgeInsets.only(left: 20, right: 20), // Padding kiri dan kanan
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween, // Menyebar antara kiri dan kanan
+              children: [
+                const Text(
+                  'Tutorial',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+                ),
+                TextButton(
+                  onPressed: () {
+                    // Aksi saat klik "Lihat Semua"
+                  },
+                  child: const Text(
+                    'Lihat Semua',
+                    style: TextStyle(fontSize: 16, color: Colors.green),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-                    child: Stack(
-                      clipBehavior: Clip.none, // Allow the mascot to float above other elements
-                      children: [
-                        // TextField (Search Bar)
-                        TextField(
-                          decoration: InputDecoration(
-                            hintText: 'Cari',
-                            prefixIcon: const Icon(Icons.search),
-                            filled: true,
-                            fillColor: Colors.white,
-                            contentPadding: const EdgeInsets.all(12),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(12),
-                              borderSide: BorderSide.none,
-                            ),
-                          ),
-                        ),
-                        // Mascot (kotset.svg) positioned in the top-right corner
-                        Positioned(
-                          top: -80,
-                          right: 0, 
-                          child: SvgPicture.asset(
-                            'assets/svg/kotset.svg',
-                            width: 120, // Mengubah ukuran lebar ikon menjadi lebih besar
-                            height: 95,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),
-
         body: Column(
           children: [
-            const TabBar(
-              labelColor: Colors.black,
-              unselectedLabelColor: Colors.black45,
-              labelStyle: TextStyle(fontWeight: FontWeight.bold),
-              indicator: UnderlineTabIndicator(
-                borderSide: BorderSide(width: 2.0, color: Color(0xFFFF9B50)),
-                insets: EdgeInsets.symmetric(horizontal: 120.0),
-              ),
-              tabs: [Tab(text: 'Artikel'), Tab(text: 'Idea craft')],
-            ),
-
-            const SizedBox(height: 25),
+            const SizedBox(height: 10),
             // Isi tab
             Expanded(
               child: TabBarView(
                 children: [
-                  _buildArtikelTab(context), // Tab Artikel dengan filter DIY, Kelas Online, Limbah
-                  const IdeaCraftPage(),    // Tab Idea Craft dengan filter Mudah, Sedang, Sulit
+                  _buildArtikelTab(
+                    context,
+                  ), // Tab Artikel dengan filter DIY, Kelas Online, Limbah
+                  const IdeaCraftPage(), // Tab Idea Craft dengan filter Mudah, Sedang, Sulit
                 ],
               ),
             ),
@@ -118,17 +73,17 @@ class EducationPage extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             child: Row(
               children: [
-                _filterButton("Kerajinan (DIY)", selected: true),
-                const SizedBox(width: 20),
-                _filterButton("Kelas Online"),
-                const SizedBox(width: 20),
-                _filterButton("Limbah"),
+                 const SizedBox(width: 10),
+                _filterButton("Mudah", selected: true),
+                const SizedBox(width: 50),
+                _filterButton("Sedang"),
+                const SizedBox(width: 50),
+                _filterButton("Sulit"),
               ],
             ),
           ),
           const SizedBox(height: 20),
-          _sectionHeader(context, 'Artikel Terkini'),
-          const SizedBox(height: 12),
+          
           // Artikel content (replace this with your article widgets)
           SizedBox(
             height: 220,
@@ -137,38 +92,36 @@ class EducationPage extends StatelessWidget {
               children: [
                 ArticleCard(
                   image: 'assets/images/artikel.png',
-                  title:
-                      '5 Bahan yang Sering Kamu Buang Padahal Bisa Didaur Ulang',
+                  title: '5 Bahan yang Sering Kamu Buang Padahal Bisa Didaur Ulang',
                 ),
                 const SizedBox(width: 12),
                 ArticleCard(
                   image: 'assets/images/artikel/mengelolasampah.png',
-                  title:
-                      'Dari Sampah Daur Ulang, Sukarelawan Membersihkan Sampah',
+                  title: 'Dari Sampah Daur Ulang, Sukarelawan Membersihkan Sampah',
                 ),
               ],
             ),
           ),
           const SizedBox(height: 20),
-          _sectionHeader(context, 'Baca Sekarang'),
+          _sectionHeader(context, 'Step by Step', ),
           const SizedBox(height: 12),
           SizedBox(
             height: 220,
             child: ListView(
               scrollDirection: Axis.horizontal,
               children: [
-                BacaCard(
+                IdeaCard(
                   image: 'assets/images/artikel/manfaat.png',
                   title: 'Mengurangi Volume Sampah di TPA',
                   description: 'Sampah Yang Diolah Seringkali...',
                 ),
                 const SizedBox(width: 12),
-                BacaCard(
+                IdeaCard(
                   image: 'assets/images/artikel/kontaminasi.png',
                   title: 'Dukungan Ekonomi Sirkular',
                   description: 'Sampah yang terpilah bisa dijadikan Bahan Baku',
                 ),
-                BacaCard(
+                IdeaCard(
                   image: 'assets/images/artikel/kontaminasi.png',
                   title: 'Dukungan Ekonomi Sirkular',
                   description: 'Sampah yang terpilah bisa dijadikan Bahan Baku',
@@ -233,14 +186,14 @@ class EducationPage extends StatelessWidget {
       children: [
         Text(
           title,
-          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: title == 'Step by Step' ? 25 : 20),
         ),
         GestureDetector(
           onTap: () {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => const EducationListPage(),
+                builder: (context) => const IdeacraftListPage(),
               ),
             );
           },

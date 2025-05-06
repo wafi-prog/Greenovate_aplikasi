@@ -26,7 +26,7 @@ class Boarding1page extends StatelessWidget {
                   ),
                   const SizedBox(height: 12),
                   const Text(
-                   'Di Grenove, kamu bisa belajar cara jaga bumi dengan cara yang seru dan gampang dipahami.',
+                   'Di Grenov, kamu bisa belajar cara jaga bumi dengan cara yang seru dan gampang dipahami.',
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 14, color: Colors.black87),
                   ),
@@ -68,14 +68,14 @@ class Boarding1page extends StatelessWidget {
               bottom: 24,
               right: 24,
               child: FloatingActionButton(
-                backgroundColor: const Color(0xFF1A73E8),
+                backgroundColor: const  Color(0xFFFF9B50),
                 onPressed: () {
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(builder: (context) => const Boarding2page()),
                   );
                 },
-                child: const Icon(Icons.arrow_forward),
+                child: const Icon(Icons.arrow_forward, color: Colors.white,),
               ),
             ),
           ],
@@ -89,7 +89,7 @@ class Boarding1page extends StatelessWidget {
       width: isActive ? 16 : 8,
       height: 8,
       decoration: BoxDecoration(
-        color: isActive ? Colors.blue : Colors.grey[300],
+        color: isActive ?  Color(0xFFFF9B50) : Colors.grey[300],
         borderRadius: BorderRadius.circular(12),
       ),
     );

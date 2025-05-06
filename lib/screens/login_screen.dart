@@ -26,14 +26,9 @@ class _LoginPageState extends State<LoginPage> {
             // Top Row (back & logo)
             Row(
               children: [
-                IconButton(
-                  icon: const Icon(Icons.arrow_back, color: Colors.white),
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/boarding3');
-                  },
-                ),
+                
                 const Spacer(),
-                Image.asset('assets/images/white.png', height: 30),
+                Image.asset('assets/images/white.png', height: 55),
                 const Spacer(flex: 2),
               ],
             ),

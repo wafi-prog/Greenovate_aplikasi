@@ -49,24 +49,13 @@ class Boarding2page extends StatelessWidget {
             ),
             Stack(
               children: [
-                // Tombol "Balik" (ikon panah) di pojok kiri atas
-                Positioned(
-                  top: 16,
-                  left: 16,
-                  child: IconButton(
-                    icon: const Icon(Icons.arrow_back, color: Colors.black87),
-                    onPressed: () {
-                    Navigator.pushNamed(context, '/boarding1');
-                    },
-                  ),
-                ),
                 // Tombol "Skip" di pojok kanan atas
                 Positioned(
                   top: 16,
                   right: 16,
                   child: TextButton(
                     onPressed: () {
-                       Navigator.pushNamed(context, '/login');
+                      Navigator.pushNamed(context, '/login');
                     },
                     child: const Text(
                       'Skip',
@@ -81,7 +70,7 @@ class Boarding2page extends StatelessWidget {
               bottom: 24,
               right: 24,
               child: FloatingActionButton(
-                backgroundColor: const Color(0xFF1A73E8),
+                backgroundColor: const  Color(0xFFFF9B50),
                 onPressed: () {
                   Navigator.pushReplacement(
                     context,
@@ -90,7 +79,7 @@ class Boarding2page extends StatelessWidget {
                     ),
                   );
                 },
-                child: const Icon(Icons.arrow_forward),
+                child: const Icon(Icons.arrow_forward, color: Colors.white,),
               ),
             ),
           ],
@@ -104,7 +93,7 @@ class Boarding2page extends StatelessWidget {
       width: isActive ? 16 : 8,
       height: 8,
       decoration: BoxDecoration(
-        color: isActive ? Colors.blue : Colors.grey[300],
+        color: isActive ?  Color(0xFFFF9B50) : Colors.grey[300],
         borderRadius: BorderRadius.circular(12),
       ),
     );
